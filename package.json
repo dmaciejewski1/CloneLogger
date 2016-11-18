@@ -1,0 +1,26 @@
+{
+  "name": "clonelogger",
+  "version": "0.0.1",
+  "description": "Creates log tables for the CloneEngine module (aka: cloneengine) and logs output to a specified Oracle database of choice",
+  "author": {
+    "name"  :"David Maciejewski",
+    "email" :"dmaciejewski1@gmail.com"
+  },
+  "main": "app.js",
+  "repository" : {
+    "type" : "git",
+    "url"  : "https://github.com/dmaciejewski1/CloneLogger.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "oracledb": "^1.11.0"
+    },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.3.0"
+    },
+  "scripts": {
+    "test": "mocha"
+    }
+}
