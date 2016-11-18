@@ -43,7 +43,7 @@ An add-on library that will create both Activity and Operation log tables within
 
   #### C. CloneLogger Installation
   ```
-  npm clonelogger
+  npm install clonelogger
   ```
 
   #### D. Run CloneEngine Operations
