@@ -2,11 +2,12 @@
 Create and Maintain Log Tables for the CloneEngine Module
 
 ### Summary:
-An add-on library that will create both Activity and Operation log tables within an Oracle Database environment for the CloneEngine Module. CloneLogger was designed to easily capture emitted messages from CloneEngine into specified log tables. This library has functions to look for existing log tables (by name) and either drop or create or them, to ultimately insert (CloneEngine) output to them with minimal database hassle.
+ CloneLogger was designed to capture emitted messages from CloneEngine into specified log tables. This library has functions to look for existing log tables (by name) and either create (or recreate) them, to ultimately insert (CloneEngine) output to them with minimal database hassle.
 
 ### Requirements:
   - Oracle Instant Client installed and configured on local machine
   - Access to an Oracle Schema with read/write/drop permissions
+  - CloneEngine module installed (https://www.npmjs.com/package/cloneengine)
 
 ### Quick Start:
 #### A. Oracle Instant Client Download
@@ -41,12 +42,16 @@ An add-on library that will create both Activity and Operation log tables within
   ```
   4) Restart your Terminal application OR type the following ```source ~/.bashrc```
 
-  #### C. CloneLogger Installation
+  #### D. Install CloneEngine and CloneLogger
+  ```
+  npm install cloneengine
+  ```
+  #### E. Install CloneEngine and CloneLogger
   ```
   npm install clonelogger
   ```
 
-  #### D. Run CloneEngine Operations
+  #### F. Run CloneEngine Operations With Clone Logger (example/template)
   ```js
   "use strict";
   var CloneEngine = require('cloneengine');
@@ -77,9 +82,9 @@ An add-on library that will create both Activity and Operation log tables within
 
   //----configure CloneEngine----
   const OVERWRITE_FOR_ALL_OPS = 'yes'; // allows CloneEngine to delete existing (Destination Db) table and replaces with new one
-  const TIMEZONE = 'local'; // uses ISO Standard Timestamp... choose either 'utc' or 'local'
+  const TIMEZONE = 'local'; // uses ISO Standard Timestamp... choose either "utc" or "local"
   const DISPLAY_MESSAGES_ON_CONSOLE = 'yes'; // configures CloneEngine messages to display on console
-  const RUN_TYPE = 'sync'; // choose to run operations either "sync" (synchronously) or "async" (asynchronously)
+  const RUN_TYPE = 'synchronous'; // choose to run operations either "synchronous" or "asynchronous"
   const STOP_ON_ERROR = 'yes'; // when running synchronously... upon an error: if 'yes' is selected, no further operations will be run
 
   //---configure CloneLogger----
@@ -161,6 +166,7 @@ An add-on library that will create both Activity and Operation log tables within
     engine.on('connection',function(msg){handleEmitterOutput(msg);})
     engine.on('rowsToProcess',function(msg){handleEmitterOutput(msg);})
     engine.on('process',function(msg){handleEmitterOutput(msg);})
+    engine.on('bytesCached',function(msg){handleEmitterOutput(msg);})
     engine.on('countsMatch',function(msg){handleEmitterOutput(msg);})
     engine.on('finish',function(msg){handleEmitterOutput(msg);})
     engine.on('ERROR!',function(msg){handleEmitterOutput(msg);})
@@ -184,7 +190,7 @@ An add-on library that will create both Activity and Operation log tables within
   ////////////////////////////////////// RUN ENGINE OPERATIONS ////////////////////////////////////
 
   //Run CloneEngine Operations (synchronously)...
-  if (RUN_TYPE === 'sync') {
+  if (RUN_TYPE === 'synchronous') {
 
     runCloneEngineOperation({
       sourceTableName                     : 'table_a',
@@ -215,7 +221,7 @@ An add-on library that will create both Activity and Operation log tables within
   }
 
   //Run CloneEngine Operations (asynchronously)...
-  if (RUN_TYPE === 'async') {
+  if (RUN_TYPE === 'asynchronous') {
 
     runCloneEngineOperation({
       sourceTableName                     : 'table_a',
