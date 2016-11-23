@@ -1,6 +1,6 @@
 {
   "name": "clonelogger",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Creates log tables for the CloneEngine module (aka: cloneengine) and logs output to a specified Oracle database of choice",
   "author": {
     "name"  :"David Maciejewski",
